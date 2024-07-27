@@ -61,8 +61,9 @@ router.put('/updatenote/:id', fetchUser, async(req, res)=>{
         if(note.user.toString() !== req.user.id){ // agar dusari ki id se acces karna chah raha hai 
             return res.status(401).send("Not Allowed");
         }
-        //yaha tak aa gaya matlab sab kuch shi chal raha hai
+        //yaha tak aa gaya matlab sab kuch shi chal raha hai,
         note = await Note.findByIdAndUpdate(req.params.id, {$set:newNote},{new:true})
+
         res.json({note});
     } catch (error) {
         console.error(error);
