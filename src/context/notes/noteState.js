@@ -12,7 +12,8 @@ const NoteState = (props)=> {
             method:'get',
             headers: {
               'Content-Type':'application/json',
-               "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjU2ZTEwY2JmMGE5MWVhNGYyOGNkYzAyIn0sImlhdCI6MTcwMTcxMjA3NX0.XV3hjehK2xgDj5b-oh3GTQK4JpoZri46IAO_qosXwJc"
+              "auth-token" : localStorage.getItem('token')
+              //  "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjU4OWNmYjE0Y2YzM2U2NWFkMjE1NDYwIn0sImlhdCI6MTcwMzUzMDQxN30.ZOf2ymi8s3VFPFDGqmx7xwsupZ04k0V86W7JBpmnTTs"
             },
           });
           
@@ -30,7 +31,8 @@ const NoteState = (props)=> {
         method:'post',
         headers: {
           'Content-Type':'application/json',
-           "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjU2ZTEwY2JmMGE5MWVhNGYyOGNkYzAyIn0sImlhdCI6MTcwMTcxMjA3NX0.XV3hjehK2xgDj5b-oh3GTQK4JpoZri46IAO_qosXwJc"
+          "auth-token" : localStorage.getItem('token')
+          //  "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjU4OWNmYjE0Y2YzM2U2NWFkMjE1NDYwIn0sImlhdCI6MTcwMzUzMDQxN30.ZOf2ymi8s3VFPFDGqmx7xwsupZ04k0V86W7JBpmnTTs"
         },
         body: JSON.stringify({title, description, tag}), // body data type must match "Content-Type" header
       });
@@ -56,7 +58,8 @@ const NoteState = (props)=> {
         method:'DELETE',
         headers: {
           'Content-Type':'application/json',
-           "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjU2ZTEwY2JmMGE5MWVhNGYyOGNkYzAyIn0sImlhdCI6MTcwMTcxMjA3NX0.XV3hjehK2xgDj5b-oh3GTQK4JpoZri46IAO_qosXwJc"
+          "auth-token" : localStorage.getItem('token')
+          //  "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjU4OWNmYjE0Y2YzM2U2NWFkMjE1NDYwIn0sImlhdCI6MTcwMzUzMDQxN30.ZOf2ymi8s3VFPFDGqmx7xwsupZ04k0V86W7JBpmnTTs"
         },
         
       });
@@ -73,7 +76,8 @@ const NoteState = (props)=> {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
-          "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjU2ZTEwY2JmMGE5MWVhNGYyOGNkYzAyIn0sImlhdCI6MTcwMTcxMjA3NX0.XV3hjehK2xgDj5b-oh3GTQK4JpoZri46IAO_qosXwJcd"
+          "auth-token" : localStorage.getItem('token')
+          // "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjU2ZTEwY2JmMGE5MWVhNGYyOGNkYzAyIn0sImlhdCI6MTcwMTcxMjA3NX0.XV3hjehK2xgDj5b-oh3GTQK4JpoZri46IAO_qosXwJcd"
         },
         body: JSON.stringify({title, description, tag})
       });

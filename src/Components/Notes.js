@@ -2,12 +2,19 @@ import React, { useContext, useEffect, useRef, useState } from 'react'
 import noteContext from '../context/notes/notesContext';
 import Noteitem from "./NoteItem"
 import AddNote from './AddNote';
+import { useNavigate } from 'react-router-dom';
 
-const Notes = () => {
+const Notes = (props) => {
+  let navigate=useNavigate()
   const context = useContext(noteContext);
   const { notes, getNotes, editNote } = context;
   useEffect(() => {
-    getNotes()
+    if(localStorage.getItem('token')){
+      getNotes();
+    }
+    else{
+      navigate("/login");
+    }
     // eslint-disable-next-line
   }, [])
   const ref = useRef(null)
@@ -17,24 +24,27 @@ const Notes = () => {
   const updateNote = (currentNote) => {
     ref.current.click();
     setNote({ id: currentNote._id, etitle: currentNote.title, edescription: currentNote.description, etag: currentNote.tag })
+    
   }
 
   const handleClick = (e) => {
     editNote(note.id, note.etitle, note.edescription, note.etag)
     refClose.current.click();
+    props.showALert("Notes Updated Successfully","success")
   }
 
   const onChange = (e) => {
     setNote({ ...note, [e.target.name]: e.target.value })
   }
-  console.log(notes)
-  console.log(note)
+  // console.log(notes)
+  // console.log(note)
   return (
     <>
-      <AddNote />
+      <AddNote showALert={props.showALert} />
       <button ref={ref} type="button" className="btn btn-primary d-none" data-bs-toggle="modal" data-bs-target="#exampleModal">
         Launch demo modal
       </button>
+      
       <div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div className="modal-dialog">
           <div className="modal-content">
@@ -73,7 +83,7 @@ const Notes = () => {
           
         </div>
         {notes.map((note) => {
-          return <Noteitem key={note._id} updateNote={updateNote} note={note} />
+          return <Noteitem key={note._id} updateNote={updateNote} showALert={props.showALert} note={note} />
         })}
       </div>
     </>

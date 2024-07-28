@@ -14,9 +14,10 @@ router.post('/createuser', [
     body('email', "Enter a valid Email").isEmail(),
     body('password', 'Password must have a minimum of 5 characters').isLength({ min: 5 }),
   ], async (req, res) => {
+    let success = false;
     const errors = validationResult(req);
   if (!errors.isEmpty()) {
-    return res.status(400).json({ errors: errors.array() });
+    return res.status(400).json({success,errors: errors.array() });
   }
 
   try {
@@ -37,12 +38,13 @@ router.post('/createuser', [
 
     const authToken = jwt.sign(data, JWT_SECRET);
     console.log(authToken);
-    res.json({authToken});
+    success = true;
+    res.json({success, authToken});
 
   } catch (error) {
     if (error.code === 11000) {
       // Duplicate key error
-      return res.status(400).json({ error: 'Email already exists' });
+      return res.status(400).json({error: 'Email already exists' });
     }
     console.error(error);
     // res.status(500).json({ error: 'Server error' });
@@ -57,7 +59,7 @@ router.post('/login', [
   body('email', "Enter a valid Email").isEmail(),
   body('password','Password cannot be blank').exists()
 ], async (req, res) => {
-
+  let success = false;
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.array() });
@@ -66,12 +68,12 @@ router.post('/login', [
   try{
     let user = await User.findOne({email});
     if(!user){
-      return res.status(400).json({error: "Please enter the correct Credentials"});
+      return res.status(400).json({success,error: "Please enter the correct Credentials"});
     }
     
     const passwordCompare= await bcrypt.compare(password,user.password);
     if(!passwordCompare){
-      return res.status(400).json({error: "Please enter the correct Credentials"});
+      return res.status(400).json({success,error: "Please enter the correct Credentials"});
     }
 
     const data ={
@@ -82,7 +84,8 @@ router.post('/login', [
 
     const authToken = jwt.sign(data, JWT_SECRET);
     // console.log(authToken);
-    res.json({authToken});
+    success= true;
+    res.json({success,authToken});
 
   } catch (error) {
 
